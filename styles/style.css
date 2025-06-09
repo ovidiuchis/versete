@@ -1,0 +1,176 @@
+body {
+  margin: 0;
+  font-family: "Merriweather", "Georgia", serif;
+  background: #f6f5f3;
+  color: #2d2d2d;
+}
+
+header {
+  background: #fff;
+  color: #1b4482;
+  padding: 32px 0 16px 0;
+  text-align: center;
+  border-bottom: 2px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+h1 {
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #1b4482;
+  margin: 0 0 8px 0;
+}
+
+main {
+  padding: 24px 0 80px 0;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verse-card {
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 18px;
+  margin: 24px 8px;
+  max-width: 100%;
+  padding: 24px 16px 18px 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s;
+}
+.verse-card:hover {
+  box-shadow: 0 8px 32px rgba(27, 68, 130, 0.13);
+}
+.verse-ref {
+  font-family: "Merriweather", "Georgia", serif;
+  font-weight: 700;
+  color: #1b4482;
+  margin-bottom: 18px;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+}
+.verse-text {
+  font-size: 1.15em;
+  cursor: pointer;
+  transition: filter 0.3s, color 0.3s;
+  user-select: none;
+  color: #2d2d2d;
+  line-height: 1.7;
+  font-family: "Merriweather", "Georgia", serif;
+}
+.blurred {
+  filter: blur(8px);
+  color: #bdbdbd;
+}
+.partial .first-word {
+  color: #1b4482;
+  font-weight: bold;
+}
+.partial .rest-blur {
+  filter: blur(8px);
+  color: #bdbdbd;
+}
+footer {
+  background: #fff;
+  color: #1b4482;
+  text-align: center;
+  padding: 18px 0 12px 0;
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1em;
+  border-top: 2px solid #e0e0e0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.03);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.collection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  margin: 32px 0 0 0;
+}
+
+.collection-btn {
+  background: #1b4482;
+  color: #fff;
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(27, 68, 130, 0.07);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.collection-btn:hover,
+.collection-btn:focus {
+  background: #16325c;
+  box-shadow: 0 4px 16px rgba(27, 68, 130, 0.13);
+}
+
+#collection-select-section {
+  text-align: center;
+  margin-top: 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#collection-select-section h2 {
+  color: #1b4482;
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+#verses-section {
+  margin-top: 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 18px 0 10px 0;
+  }
+  h1 {
+    font-size: 1.3em;
+  }
+  main {
+    max-width: 100vw;
+  }
+  .verse-card {
+    margin: 16px 4px;
+    padding: 14px 6px 12px 6px;
+    border-radius: 12px;
+  }
+  .verse-ref {
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+  .verse-text {
+    font-size: 1em;
+  }
+  footer {
+    font-size: 0.95em;
+    padding: 10px 0 8px 0;
+  }
+  .collection-btn {
+    font-size: 1em;
+    padding: 10px 16px;
+  }
+  #collection-select-section {
+    margin-top: 18px;
+  }
+}
