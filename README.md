@@ -63,23 +63,9 @@ No installation needed — just open the file and start memorizing!
 - 🧠 Designed for **memorization and reflection**
 - 🎨 Simple and beautiful styling
 - 📱 Fully responsive — works on mobile and desktop
-- 🔁 Potential to expand with:
-  - Verse rotation
-  - Verse categories (e.g., peace, faith, grace)
-  - User-added verses or memorization progress
 
 ---
 
-## 💡 Vision
-
-This is just the beginning. In future versions, features like:
-- Verse shuffle
-- Add your own verses
-- Memorization reminders
-
-...could help make it even more useful for spiritual growth.
-
----
 
 ## 🤝 Contributing
 
