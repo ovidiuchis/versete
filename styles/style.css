@@ -172,7 +172,6 @@ footer {
   padding-bottom: 8px;
   width: 100%;
   z-index: 2;
-  position: relative;
 }
 #action-buttons button {
   font-family: "Merriweather", "Georgia", serif;
@@ -311,6 +310,10 @@ footer {
   }
   #action-buttons {
     margin-bottom: 60px; /* Add extra space for the fixed footer */
+    display: none;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 18px;
   }
   #action-buttons button {
     font-size: 0.98em;

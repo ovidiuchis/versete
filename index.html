@@ -20,15 +20,7 @@
           <span class="hero-ref">Psalmul 119:11</span>
         </blockquote>
       </div>
-      <div
-        id="mode-buttons"
-        style="
-          display: none;
-          justify-content: center;
-          gap: 10px;
-          margin-bottom: 8px;
-        "
-      >
+      <div id="mode-buttons">
         <button id="mode-verset" class="mode-btn mode-active">Verset</button>
         <button id="mode-referinta" class="mode-btn">Referință</button>
       </div>
@@ -44,15 +36,7 @@
         </div>
       </section>
       <section id="verses-section" style="display: none"></section>
-      <div
-        id="action-buttons"
-        style="
-          display: none;
-          justify-content: center;
-          gap: 12px;
-          margin-top: 18px;
-        "
-      >
+      <div id="action-buttons">
         <button id="back-btn">Înapoi la colecții</button>
         <button id="refresh-btn">Reîncarcă</button>
       </div>
@@ -61,17 +45,5 @@
       <p>&copy; Versete · Un proiect pentru memorarea Scripturii · 2025</p>
     </footer>
     <script src="scripts/app.js"></script>
-    <script>
-      document.getElementById("site-title").onclick = function () {
-        // Reset to collection selection view
-        document.getElementById("collection-select-section").style.display =
-          "flex";
-        document.getElementById("verses-section").style.display = "none";
-        document.getElementById("action-buttons").style.display = "none";
-        document.querySelector(".hero").style.display = "block";
-        document.getElementById("mode-buttons").style.display = "none";
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      };
-    </script>
   </body>
 </html>

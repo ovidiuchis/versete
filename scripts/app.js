@@ -2,6 +2,16 @@
 let currentMode = "verset"; // "verset" or "referinta"
 let heroVerses = [];
 
+document.getElementById("site-title").onclick = function () {
+  // Reset to collection selection view
+  document.getElementById("collection-select-section").style.display = "flex";
+  document.getElementById("verses-section").style.display = "none";
+  document.getElementById("action-buttons").style.display = "none";
+  document.querySelector(".hero").style.display = "block";
+  document.getElementById("mode-buttons").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 async function loadHeroVerses() {
   const response = await fetch("hero-verses.json");
   heroVerses = await response.json();
@@ -161,6 +171,7 @@ function renderVerses(collection) {
   showActionButtons(true);
   showHero(false);
   showModeButtons(true);
+  // Remove main.scrollIntoView to prevent scrolling past mode buttons
 }
 
 function setupCollectionSelector() {
@@ -177,7 +188,14 @@ function setupCollectionSelector() {
       currentCollection = e.target.getAttribute("data-collection");
       section.style.display = "none";
       renderVerses(currentCollection);
-      versesSection.scrollIntoView({ behavior: "smooth" });
+      // Ensure mode buttons are visible at the very top of the viewport
+      window.scrollTo({
+        top:
+          document.getElementById("mode-buttons").getBoundingClientRect().top +
+          window.scrollY -
+          8,
+        behavior: "smooth",
+      });
     }
   });
 
@@ -221,7 +239,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   setRandomHeroVerse();
   setupCollectionSelector();
 
-  // Move header click-to-reset logic here
   const siteTitle = document.getElementById("site-title");
   if (siteTitle) {
     siteTitle.style.cursor = "pointer";
