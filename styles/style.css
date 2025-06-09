@@ -56,6 +56,7 @@ main {
   padding: 24px 16px 18px 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   transition: box-shadow 0.2s;
+  cursor: pointer;
 }
 .verse-card:hover {
   box-shadow: 0 8px 32px rgba(27, 68, 130, 0.13);
@@ -70,7 +71,6 @@ main {
 }
 .verse-text {
   font-size: 1.15em;
-  cursor: pointer;
   transition: filter 0.3s, color 0.3s;
   user-select: none;
   color: #2d2d2d;
@@ -148,7 +148,6 @@ footer {
 }
 
 #verses-section {
-  margin-top: 24px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -159,9 +158,9 @@ footer {
   display: flex;
   justify-content: center;
   gap: 12px;
-  margin-top: 18px;
-  margin-bottom: 32px; /* Added for extra space below buttons */
-  padding-bottom: 8px; /* Added for extra space below buttons */
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-bottom: 8px;
   width: 100%;
 }
 #action-buttons button {
@@ -199,6 +198,38 @@ footer {
   box-shadow: 0 4px 16px rgba(27, 68, 130, 0.13);
   transform: translateY(-2px) scale(1.04);
 }
+
+.mode-btn {
+  background: #f6f5f3;
+  color: #1b4482;
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  border: 2px solid #1b4482;
+  border-radius: 8px;
+  padding: 8px 22px;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.mode-btn.mode-active {
+  background: #1b4482;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(27, 68, 130, 0.09);
+}
+.mode-btn:hover,
+.mode-btn:focus {
+  background: #3a7bd5;
+  color: #fff;
+}
+#mode-buttons {
+  margin-bottom: 8px;
+  display: none;
+  justify-content: center;
+  gap: 10px;
+}
+
 .hero {
   background: #eaf1fa;
   border-radius: 18px;
@@ -231,6 +262,7 @@ footer {
   box-shadow: 0 4px 24px rgba(27, 68, 130, 0.13);
   background: #dbeafe;
 }
+
 @media (max-width: 600px) {
   header {
     background-size: cover;
@@ -279,5 +311,15 @@ footer {
   }
   .hero blockquote {
     font-size: 0.98em;
+  }
+}
+
+@media (min-width: 601px) {
+  header {
+    padding: 56px 0 32px 0;
+  }
+  h1 {
+    font-size: 2.8em;
+    margin-bottom: 18px;
   }
 }

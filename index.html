@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memorează versete - olimpiada biblică</title>
+    <title>Memorează versete din Scriptură</title>
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="icon" href="styles/bible.png" type="image/x-icon" />
   </head>
   <body>
     <header>
-      <h1>Memorează versete - olimpiada biblică</h1>
+      <h1>Memorează versete din Scriptură</h1>
     </header>
     <main>
       <div class="hero" style="display: none">
@@ -18,11 +18,26 @@
           <span class="hero-ref">Psalmul 119:11</span>
         </blockquote>
       </div>
+      <div
+        id="mode-buttons"
+        style="
+          display: none;
+          justify-content: center;
+          gap: 10px;
+          margin-bottom: 8px;
+        "
+      >
+        <button id="mode-verset" class="mode-btn mode-active">Verset</button>
+        <button id="mode-referinta" class="mode-btn">Referință</button>
+      </div>
       <section id="collection-select-section">
         <h2>Alege colecția de versete</h2>
         <div class="collection-list">
           <button class="collection-btn" data-collection="comunitate2025">
             Faza comunitate 2025
+          </button>
+          <button class="collection-btn" data-collection="scriptura">
+            Despre Scriptura
           </button>
         </div>
       </section>
@@ -41,7 +56,7 @@
       </div>
     </main>
     <footer>
-      <p>&copy; Asistent memorare versete</p>
+      <p>&copy; 2025 Versete · Un proiect pentru memorarea Scripturii</p>
     </footer>
     <script src="scripts/app.js"></script>
   </body>

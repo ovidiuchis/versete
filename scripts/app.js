@@ -1,85 +1,126 @@
 // Versete de memorat
-const comunitate2025 = [
-  {
-    ref: "Numeri 6.24-25",
-    text: "Domnul să te binecuvânteze şi să te păzească! Domnul să facă să lumineze Faţa Lui peste tine şi să Se îndure de tine!",
+let currentMode = "verset"; // "verset" or "referinta"
+let heroVerses = [];
+
+async function loadHeroVerses() {
+  const response = await fetch("hero-verses.json");
+  heroVerses = await response.json();
+}
+
+// Store all collections in a single object for easier management
+const collections = {
+  comunitate2025: {
+    data: [],
+    file: "comunitate2025.json",
+    map: (v) => v, // already in {ref, text} format
   },
-  {
-    ref: "Estera 4.14",
-    text: "Căci, dacă vei tăcea acum, ajutorul şi izbăvirea vor veni din altă parte pentru iudei, şi tu şi casa tatălui tău veţi pieri. Şi cine ştie dacă nu pentru o vreme ca aceasta ai ajuns la împărăţie?",
+  scriptura: {
+    data: [],
+    file: "scriptura.json",
+    map: (v) => ({ ref: v.reference, text: v.text }),
   },
-  {
-    ref: "Luca 4.18",
-    text: "Duhul Domnului este peste Mine, pentru că M-a uns să vestesc săracilor Evanghelia, M-a trimis să tămăduiesc pe cei cu inima zdrobită, să propovăduiesc robilor de război slobozirea şi orbilor, căpătarea vederii…",
-  },
-  {
-    ref: "Luca 6.37",
-    text: "Nu judecaţi, şi nu veţi fi judecaţi; nu osândiţi, şi nu veţi fi osândiţi; iertaţi, şi vi se va ierta.",
-  },
-  {
-    ref: "Luca 9.23",
-    text: "Dacă voieşte cineva să vină după Mine, să se lepede de sine, să-şi ia crucea în fiecare zi şi să Mă urmeze.",
-  },
-  {
-    ref: "Luca 10.27",
-    text: "El a răspuns: „Să iubeşti pe Domnul Dumnezeul tău cu toată inima ta, cu tot sufletul tău, cu toată puterea ta şi cu tot cugetul tău şi pe aproapele tău ca pe tine însuţi.”",
-  },
-  {
-    ref: "Luca 11.9",
-    text: "De aceea şi Eu vă spun: „Cereţi, şi vi se va da; căutaţi, şi veţi găsi; bateţi, şi vi se va deschide.”",
-  },
-  {
-    ref: "Luca 12.15",
-    text: "Apoi le-a zis: „Vedeţi şi păziţi-vă de orice fel de lăcomie de bani, căci viaţa cuiva nu stă în belşugul avuţiei lui.”",
-  },
-  {
-    ref: "Luca 12.32",
-    text: "Nu te teme, turmă mică, pentru că Tatăl vostru vă dă cu plăcere Împărăţia.",
-  },
-  {
-    ref: "Luca 19.10",
-    text: "Pentru că Fiul omului a venit să caute şi să mântuiască ce era pierdut.",
-  },
-  {
-    ref: "Luca 21.33",
-    text: "Cerul şi pământul vor trece, dar cuvintele Mele nu vor trece.",
-  },
-];
+};
+
+async function loadCollection(name) {
+  if (!collections[name]) return;
+  const response = await fetch(collections[name].file);
+  collections[name].data = await response.json();
+}
+
+async function loadAllCollections() {
+  await Promise.all(Object.keys(collections).map(loadCollection));
+}
+
+function getCollectionVerses(name) {
+  if (!collections[name]) return [];
+  return collections[name].data.map(collections[name].map);
+}
+
+function setRandomHeroVerse() {
+  if (!heroVerses.length) return;
+  const idx = Math.floor(Math.random() * heroVerses.length);
+  const hero = document.querySelector(".hero blockquote");
+  if (hero) {
+    hero.innerHTML = `„${heroVerses[idx].text}”<span class="hero-ref">${heroVerses[idx].ref}</span>`;
+  }
+}
 
 function createVerseCard(verse) {
   const card = document.createElement("div");
   card.className = "verse-card";
+  card.style.cursor = "pointer";
 
   const ref = document.createElement("div");
   ref.className = "verse-ref";
   ref.textContent = verse.ref;
 
   const text = document.createElement("div");
-  text.className = "verse-text blurred";
+  text.className = "verse-text";
   text.textContent = verse.text;
 
   let clickCount = 0;
-  text.addEventListener("click", function () {
+  card.addEventListener("click", function () {
     clickCount++;
-    if (clickCount === 1) {
-      // Show only the first word
-      const firstWord = verse.text.split(" ")[0];
-      text.innerHTML =
-        `<span class="first-word">${firstWord}</span>` +
-        `<span class="rest-blur">${verse.text.slice(firstWord.length)}</span>`;
-      text.classList.remove("blurred");
-      text.classList.add("partial");
-    } else if (clickCount === 2) {
-      // Show the full verse
-      text.textContent = verse.text;
-      text.classList.remove("partial");
-      text.classList.remove("blurred");
+    if (currentMode === "verset") {
+      if (clickCount === 1) {
+        const firstWord = verse.text.split(" ")[0];
+        text.innerHTML =
+          `<span class="first-word">${firstWord}</span>` +
+          `<span class="rest-blur">${verse.text.slice(
+            firstWord.length
+          )}</span>`;
+        text.classList.remove("blurred");
+        text.classList.add("partial");
+      } else if (clickCount === 2) {
+        text.textContent = verse.text;
+        text.classList.remove("partial", "blurred");
+      }
+    } else if (currentMode === "referinta") {
+      const colonIdx = verse.ref.indexOf(":");
+      if (clickCount === 1) {
+        if (colonIdx !== -1) {
+          ref.innerHTML = `<span class="first-word">${verse.ref.slice(
+            0,
+            colonIdx + 1
+          )}</span><span class="rest-blur">${verse.ref.slice(
+            colonIdx + 1
+          )}</span>`;
+        } else {
+          ref.innerHTML = `<span class="first-word">${verse.ref}</span>`;
+        }
+        ref.classList.remove("blurred");
+        ref.classList.add("partial");
+      } else if (clickCount === 2) {
+        ref.textContent = verse.ref;
+        ref.classList.remove("partial", "blurred");
+      }
     }
   });
+
+  if (currentMode === "verset") {
+    text.classList.add("blurred");
+  } else if (currentMode === "referinta") {
+    ref.classList.add("blurred");
+  }
 
   card.appendChild(ref);
   card.appendChild(text);
   return card;
+}
+
+function updateModeButtons() {
+  document
+    .getElementById("mode-verset")
+    .classList.toggle("mode-active", currentMode === "verset");
+  document
+    .getElementById("mode-referinta")
+    .classList.toggle("mode-active", currentMode === "referinta");
+}
+
+function showModeButtons(show) {
+  document.getElementById("mode-buttons").style.display = show
+    ? "flex"
+    : "none";
 }
 
 function shuffleArray(array) {
@@ -90,8 +131,9 @@ function shuffleArray(array) {
 }
 
 function showActionButtons(show) {
-  const actionButtons = document.getElementById("action-buttons");
-  actionButtons.style.display = show ? "flex" : "none";
+  document.getElementById("action-buttons").style.display = show
+    ? "flex"
+    : "none";
 }
 
 function showHero(show) {
@@ -102,10 +144,7 @@ function showHero(show) {
 function renderVerses(collection) {
   const versesSection = document.getElementById("verses-section");
   versesSection.innerHTML = "";
-  let verses = [];
-  if (collection === "comunitate2025") {
-    verses = comunitate2025.slice();
-  }
+  let verses = getCollectionVerses(collection);
   shuffleArray(verses);
   verses.forEach((verse) => {
     versesSection.appendChild(createVerseCard(verse));
@@ -113,6 +152,7 @@ function renderVerses(collection) {
   versesSection.style.display = "block";
   showActionButtons(true);
   showHero(false);
+  showModeButtons(true);
 }
 
 function setupCollectionSelector() {
@@ -120,6 +160,8 @@ function setupCollectionSelector() {
   const versesSection = document.getElementById("verses-section");
   const backBtn = document.getElementById("back-btn");
   const refreshBtn = document.getElementById("refresh-btn");
+  const modeVersetBtn = document.getElementById("mode-verset");
+  const modeReferintaBtn = document.getElementById("mode-referinta");
   let currentCollection = null;
 
   section.addEventListener("click", function (e) {
@@ -136,6 +178,7 @@ function setupCollectionSelector() {
     section.style.display = "flex";
     showActionButtons(false);
     showHero(true);
+    showModeButtons(false);
   });
 
   refreshBtn.addEventListener("click", function () {
@@ -143,8 +186,30 @@ function setupCollectionSelector() {
       renderVerses(currentCollection);
     }
   });
+
+  modeVersetBtn.addEventListener("click", function () {
+    if (currentMode !== "verset") {
+      currentMode = "verset";
+      updateModeButtons();
+      if (currentCollection) renderVerses(currentCollection);
+    }
+  });
+  modeReferintaBtn.addEventListener("click", function () {
+    if (currentMode !== "referinta") {
+      currentMode = "referinta";
+      updateModeButtons();
+      if (currentCollection) renderVerses(currentCollection);
+    }
+  });
   // Show hero on load
   showHero(true);
+  showModeButtons(false);
 }
 
-document.addEventListener("DOMContentLoaded", setupCollectionSelector);
+// On DOMContentLoaded, load the JSON first, then setup
+
+document.addEventListener("DOMContentLoaded", async function () {
+  await Promise.all([loadAllCollections(), loadHeroVerses()]);
+  setRandomHeroVerse();
+  setupCollectionSelector();
+});
