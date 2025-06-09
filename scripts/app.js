@@ -7,19 +7,27 @@ async function loadHeroVerses() {
   heroVerses = await response.json();
 }
 
-// Store all collections in a single object for easier management
-const collections = {
-  comunitate2025: {
+// Dynamically detect collections based on JSON files in the root directory
+const collectionFiles = [
+  "comunitate2025.json",
+  "scriptura.json",
+  // Add more collection files here as needed
+];
+
+const collections = {};
+collectionFiles.forEach((file) => {
+  const name = file.replace(/\.json$/, "");
+  collections[name] = {
     data: [],
-    file: "comunitate2025.json",
-    map: (v) => v, // already in {ref, text} format
-  },
-  scriptura: {
-    data: [],
-    file: "scriptura.json",
-    map: (v) => ({ ref: v.reference, text: v.text }),
-  },
-};
+    file,
+    map: (v) => {
+      // Try to normalize structure: prefer {ref, text}, else {reference, text}
+      if (v.ref && v.text) return v;
+      if (v.reference && v.text) return { ref: v.reference, text: v.text };
+      return v;
+    },
+  };
+});
 
 async function loadCollection(name) {
   if (!collections[name]) return;
@@ -212,4 +220,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   await Promise.all([loadAllCollections(), loadHeroVerses()]);
   setRandomHeroVerse();
   setupCollectionSelector();
+
+  // Move header click-to-reset logic here
+  const siteTitle = document.getElementById("site-title");
+  if (siteTitle) {
+    siteTitle.style.cursor = "pointer";
+    siteTitle.onclick = function () {
+      document.getElementById("collection-select-section").style.display =
+        "flex";
+      document.getElementById("verses-section").style.display = "none";
+      document.getElementById("action-buttons").style.display = "none";
+      const hero = document.querySelector(".hero");
+      if (hero) hero.style.display = "block";
+      document.getElementById("mode-buttons").style.display = "none";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  }
 });

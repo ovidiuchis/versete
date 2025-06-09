@@ -9,7 +9,9 @@
   </head>
   <body>
     <header>
-      <h1>Memorează versete din Scriptură</h1>
+      <h1 id="site-title" style="cursor: pointer">
+        Memorează versete din Scriptură
+      </h1>
     </header>
     <main>
       <div class="hero" style="display: none">
@@ -59,5 +61,17 @@
       <p>&copy; Versete · Un proiect pentru memorarea Scripturii · 2025</p>
     </footer>
     <script src="scripts/app.js"></script>
+    <script>
+      document.getElementById("site-title").onclick = function () {
+        // Reset to collection selection view
+        document.getElementById("collection-select-section").style.display =
+          "flex";
+        document.getElementById("verses-section").style.display = "none";
+        document.getElementById("action-buttons").style.display = "none";
+        document.querySelector(".hero").style.display = "block";
+        document.getElementById("mode-buttons").style.display = "none";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+    </script>
   </body>
 </html>

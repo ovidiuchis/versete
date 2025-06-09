@@ -109,6 +109,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .collection-list {
@@ -170,6 +171,8 @@ footer {
   margin-bottom: 5px;
   padding-bottom: 8px;
   width: 100%;
+  z-index: 2;
+  position: relative;
 }
 #action-buttons button {
   font-family: "Merriweather", "Georgia", serif;
@@ -305,6 +308,9 @@ footer {
   }
   #collection-select-section {
     margin-top: 18px;
+  }
+  #action-buttons {
+    margin-bottom: 60px; /* Add extra space for the fixed footer */
   }
   #action-buttons button {
     font-size: 0.98em;
