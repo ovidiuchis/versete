@@ -1,5 +1,5 @@
 // Versete de memorat
-const comunitate2024 = [
+const comunitate2025 = [
   {
     ref: "Numeri 6.24-25",
     text: "Domnul să te binecuvânteze şi să te păzească! Domnul să facă să lumineze Faţa Lui peste tine şi să Se îndure de tine!",
@@ -89,31 +89,62 @@ function shuffleArray(array) {
   }
 }
 
+function showActionButtons(show) {
+  const actionButtons = document.getElementById("action-buttons");
+  actionButtons.style.display = show ? "flex" : "none";
+}
+
+function showHero(show) {
+  const hero = document.querySelector(".hero");
+  if (hero) hero.style.display = show ? "block" : "none";
+}
+
 function renderVerses(collection) {
   const versesSection = document.getElementById("verses-section");
   versesSection.innerHTML = "";
   let verses = [];
-  if (collection === "comunitate2024") {
-    verses = comunitate2024.slice();
+  if (collection === "comunitate2025") {
+    verses = comunitate2025.slice();
   }
   shuffleArray(verses);
   verses.forEach((verse) => {
     versesSection.appendChild(createVerseCard(verse));
   });
   versesSection.style.display = "block";
+  showActionButtons(true);
+  showHero(false);
 }
 
 function setupCollectionSelector() {
   const section = document.getElementById("collection-select-section");
   const versesSection = document.getElementById("verses-section");
+  const backBtn = document.getElementById("back-btn");
+  const refreshBtn = document.getElementById("refresh-btn");
+  let currentCollection = null;
+
   section.addEventListener("click", function (e) {
     if (e.target.classList.contains("collection-btn")) {
-      const collection = e.target.getAttribute("data-collection");
+      currentCollection = e.target.getAttribute("data-collection");
       section.style.display = "none";
-      renderVerses(collection);
+      renderVerses(currentCollection);
       versesSection.scrollIntoView({ behavior: "smooth" });
     }
   });
+
+  backBtn.addEventListener("click", function () {
+    versesSection.style.display = "none";
+    section.style.display = "flex";
+    showActionButtons(false);
+    showHero(true);
+  });
+
+  refreshBtn.addEventListener("click", function () {
+    if (currentCollection) {
+      renderVerses(currentCollection);
+    }
+  });
+  // Show hero on load
+  showHero(true);
 }
 
 document.addEventListener("DOMContentLoaded", setupCollectionSelector);

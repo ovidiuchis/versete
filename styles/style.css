@@ -6,12 +6,27 @@ body {
 }
 
 header {
-  background: #fff;
+  background: url("https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80")
+      center/cover no-repeat,
+    #fff;
   color: #1b4482;
   padding: 32px 0 16px 0;
   text-align: center;
   border-bottom: 2px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.82);
+  z-index: 0;
+}
+header h1,
+header * {
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
@@ -93,7 +108,7 @@ footer {
   flex-direction: column;
   gap: 18px;
   align-items: center;
-  margin: 32px 0 0 0;
+  margin: 10px 0 0 0;
 }
 
 .collection-btn {
@@ -117,7 +132,7 @@ footer {
 
 #collection-select-section {
   text-align: center;
-  margin-top: 32px;
+  margin-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -140,8 +155,85 @@ footer {
   align-items: center;
 }
 
+#action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+  margin-bottom: 32px; /* Added for extra space below buttons */
+  padding-bottom: 8px; /* Added for extra space below buttons */
+  width: 100%;
+}
+#action-buttons button {
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.08em;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 32px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.1s;
+  outline: none;
+  border: none;
+  box-shadow: 0 2px 8px rgba(27, 68, 130, 0.09);
+}
+#refresh-btn {
+  background: linear-gradient(90deg, #1b4482 60%, #3a7bd5 100%);
+  color: #fff;
+}
+#refresh-btn:hover,
+#refresh-btn:focus {
+  background: linear-gradient(90deg, #16325c 60%, #1b4482 100%);
+  box-shadow: 0 4px 16px rgba(27, 68, 130, 0.16);
+  transform: translateY(-2px) scale(1.04);
+}
+#back-btn {
+  background: #fff;
+  color: #1b4482;
+  border: 2px solid #1b4482;
+  margin-left: 0;
+}
+#back-btn:hover,
+#back-btn:focus {
+  background: #1b4482;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(27, 68, 130, 0.13);
+  transform: translateY(-2px) scale(1.04);
+}
+.hero {
+  background: #eaf1fa;
+  border-radius: 18px;
+  margin: 0 auto 12px auto;
+  max-width: 600px;
+  padding: 10px 14px 6px 14px;
+  box-shadow: 0 2px 12px rgba(27, 68, 130, 0.07);
+  text-align: center;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.hero blockquote {
+  font-family: "Merriweather", "Georgia", serif;
+  font-size: 1.12em;
+  font-style: italic;
+  color: #1b4482;
+  margin: 0 0 4px 0;
+  line-height: 1.5;
+  letter-spacing: 0.2px;
+}
+.hero-ref {
+  display: block;
+  font-size: 0.98em;
+  color: #3a7bd5;
+  margin-top: 2px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.hero:hover {
+  box-shadow: 0 4px 24px rgba(27, 68, 130, 0.13);
+  background: #dbeafe;
+}
 @media (max-width: 600px) {
   header {
+    background-size: cover;
     padding: 18px 0 10px 0;
   }
   h1 {
@@ -172,5 +264,20 @@ footer {
   }
   #collection-select-section {
     margin-top: 18px;
+  }
+  #action-buttons button {
+    font-size: 0.98em;
+    padding: 9px 18px;
+  }
+  #action-buttons {
+    margin-top: 10px;
+  }
+  .hero {
+    padding: 6px 3px 4px 3px;
+    font-size: 1em;
+    margin-bottom: 8px;
+  }
+  .hero blockquote {
+    font-size: 0.98em;
   }
 }

@@ -12,15 +12,33 @@
       <h1>Memorează versete - olimpiada biblică</h1>
     </header>
     <main>
+      <div class="hero" style="display: none">
+        <blockquote>
+          „Strâng Cuvântul Tău în inima mea, ca să nu păcătuiesc împotriva Ta!”
+          <span class="hero-ref">Psalmul 119:11</span>
+        </blockquote>
+      </div>
       <section id="collection-select-section">
         <h2>Alege colecția de versete</h2>
         <div class="collection-list">
-          <button class="collection-btn" data-collection="comunitate2024">
+          <button class="collection-btn" data-collection="comunitate2025">
             Faza comunitate 2025
           </button>
         </div>
       </section>
       <section id="verses-section" style="display: none"></section>
+      <div
+        id="action-buttons"
+        style="
+          display: none;
+          justify-content: center;
+          gap: 12px;
+          margin-top: 18px;
+        "
+      >
+        <button id="back-btn">Înapoi la colecții</button>
+        <button id="refresh-btn">Reîncarcă</button>
+      </div>
     </main>
     <footer>
       <p>&copy; Asistent memorare versete</p>
