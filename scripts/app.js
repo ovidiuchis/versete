@@ -2,16 +2,6 @@
 let currentMode = "verset"; // "verset" or "referinta"
 let heroVerses = [];
 
-document.getElementById("site-title").onclick = function () {
-  // Reset to collection selection view
-  document.getElementById("collection-select-section").style.display = "flex";
-  document.getElementById("verses-section").style.display = "none";
-  document.getElementById("action-buttons").style.display = "none";
-  document.querySelector(".hero").style.display = "block";
-  document.getElementById("mode-buttons").style.display = "none";
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
 async function loadHeroVerses() {
   const response = await fetch("hero-verses.json");
   heroVerses = await response.json();
@@ -235,6 +225,14 @@ function setupCollectionSelector() {
 // On DOMContentLoaded, load the JSON first, then setup
 
 document.addEventListener("DOMContentLoaded", async function () {
+  // Always hide action buttons, mode buttons, and verses section on load
+  document.getElementById("action-buttons").classList.add("hidden");
+  document.getElementById("mode-buttons").classList.add("hidden");
+  document.getElementById("verses-section").classList.add("hidden");
+  document.getElementById("action-buttons").style.display = "none";
+  document.getElementById("mode-buttons").style.display = "none";
+  document.getElementById("verses-section").style.display = "none";
+
   await Promise.all([loadAllCollections(), loadHeroVerses()]);
   setRandomHeroVerse();
   setupCollectionSelector();
