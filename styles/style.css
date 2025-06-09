@@ -6,22 +6,28 @@ body {
 }
 
 header {
-  background: url("https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80")
-      center/cover no-repeat,
-    #fff;
+  background: url("h7.jpg") center/cover no-repeat, #fff;
   color: #1b4482;
   padding: 32px 0 16px 0;
   text-align: center;
   border-bottom: 2px solid #e0e0e0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   position: relative;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 header::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.82);
+  /* Soft blue overlay tint for the header image */
+  background: linear-gradient(rgba(27, 68, 130, 0.22), rgba(58, 123, 213, 0.18)),
+    rgba(255, 255, 255, 0.82);
   z-index: 0;
+  pointer-events: none;
 }
 header h1,
 header * {
@@ -36,6 +42,8 @@ h1 {
   letter-spacing: 1px;
   color: #1b4482;
   margin: 0 0 8px 0;
+  width: 100%;
+  text-align: center;
 }
 
 main {
@@ -269,7 +277,8 @@ footer {
     padding: 18px 0 10px 0;
   }
   h1 {
-    font-size: 1.3em;
+    font-size: 2em;
+    margin-bottom: 8px;
   }
   main {
     max-width: 100vw;
