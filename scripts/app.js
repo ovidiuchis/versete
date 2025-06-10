@@ -10,6 +10,7 @@ async function loadHeroVerses() {
 // Dynamically detect collections based on JSON files in the root directory
 const collectionFiles = [
   "comunitate2025.json",
+  "sioniada2025.json",
   "scriptura.json",
   // Add more collection files here as needed
 ];
