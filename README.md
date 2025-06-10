@@ -16,9 +16,21 @@ A simple and elegant web app built to **help you memorize Bible verses** — one
 
 This app was created to support **daily Scripture memorization** by offering:
 
-- A focused interface with **a single verse at a time**
+- A focused interface with **verse collections**
 - A clean, responsive layout that encourages reflection
 - Zero distractions — just you and God's Word
+
+---
+
+## ✨ Features
+
+- ✅ Focused verse display
+- 🧠 Designed for **memorization**
+- 🎨 Simple and beautiful styling
+- 📱 Fully responsive — works on mobile and desktop
+- 💡 Smart memorization modes:
+  - **Verse ➝ Reference**: The user first sees the verse (blurred) and tries to recall the correct reference. A first click reveals a **hint** – the first word of the reference.
+  - **Reference ➝ Verse**: The user first sees the reference (the verse is blurred) and tries to recall the full text. A first click reveals the **first word** of the verse as a clue.
 
 ---
 
@@ -45,27 +57,7 @@ To run the app locally:
    git clone https://github.com/ovidiuchis/versete.git
    cd versete
    ```
-
-2. **Open the HTML file**
-   ```bash
-   open index.html        # macOS
-   start index.html       # Windows
-   xdg-open index.html    # Linux
-   ```
-
-No installation needed — just open the file and start memorizing!
-
----
-
-## ✨ Features
-
-- ✅ Focused verse display
-- 🧠 Designed for **memorization and reflection**
-- 🎨 Simple and beautiful styling
-- 📱 Fully responsive — works on mobile and desktop
-
----
-
+Run it!
 
 ## 🤝 Contributing
 
