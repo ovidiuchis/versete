@@ -209,18 +209,32 @@ function setupCollectionSelector() {
       currentCollection = e.target.getAttribute("data-collection");
       section.style.display = "none";
       renderVerses(currentCollection);
-      // Ensure mode buttons are visible at the very top of the viewport
-      // window.scrollTo({
-      //   top:
-      //     document.getElementById("mode-buttons").getBoundingClientRect().top +
-      //     window.scrollY -
-      //     8,
-      //   behavior: "smooth",
-      // });
-      window.scrollTo({
-        top: document.getElementById("title-row"),
-        behavior: "smooth",
-      });
+      // Add a new state to the browser history
+      history.pushState(
+        { collection: currentCollection },
+        "",
+        "#" + currentCollection
+      );
+    }
+  });
+
+  // Listen for browser back/forward navigation
+  window.addEventListener("popstate", function (event) {
+    if (!event.state || !event.state.collection) {
+      // No collection selected, go to index/home
+      section.style.display = "flex";
+      document.getElementById("verses-section").style.display = "none";
+      showActionButtons(false);
+      showHero(true);
+      showModeButtons(false);
+      // Remove collection title row if present
+      const prevTitleRow = document.querySelector(".collection-title-row");
+      if (prevTitleRow && prevTitleRow.parentNode) {
+        prevTitleRow.parentNode.removeChild(prevTitleRow);
+      }
+    } else {
+      // Optionally, handle forward navigation to a collection
+      // renderVerses(event.state.collection);
     }
   });
 
