@@ -80,6 +80,9 @@ function createVerseCard(verse) {
           )}</span>`;
         text.classList.remove("blurred");
         text.classList.add("partial");
+        // Hide checkBtn after hint is shown
+        checkBtn.style.opacity = "0";
+        setTimeout(() => { checkBtn.style.display = "none"; }, 250);
       } else if (clickCount === 2) {
         text.textContent = verse.text;
         text.classList.remove("partial", "blurred");
@@ -99,6 +102,9 @@ function createVerseCard(verse) {
         }
         ref.classList.remove("blurred");
         ref.classList.add("partial");
+        // Hide checkBtn after hint is shown
+        checkBtn.style.opacity = "0";
+        setTimeout(() => { checkBtn.style.display = "none"; }, 250);
       } else if (clickCount === 2) {
         ref.textContent = verse.ref;
         ref.classList.remove("partial", "blurred");
@@ -131,6 +137,8 @@ function createVerseCard(verse) {
     }
     checkBtn.disabled = true;
     checkBtn.classList.add("checked");
+    checkBtn.style.opacity = "0";
+    setTimeout(() => { checkBtn.style.display = "none"; }, 250);
   });
   card.appendChild(checkBtn);
 
