@@ -112,6 +112,28 @@ function createVerseCard(verse) {
     ref.classList.add("blurred");
   }
 
+  // Add 'Verifică' button (eye icon)
+  const checkBtn = document.createElement("button");
+  checkBtn.className = "check-btn";
+  checkBtn.title = "Verifică";
+  checkBtn.innerHTML =
+    '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 4C5.45455 4 1.81818 7.27273 1 10C1.81818 12.7273 5.45455 16 10 16C14.5455 16 18.1818 12.7273 19 10C18.1818 7.27273 14.5455 4 10 4ZM10 14C7.23864 14 5 11.7614 5 9C5 6.23864 7.23864 4 10 4C12.7614 4 15 6.23864 15 9C15 11.7614 12.7614 14 10 14ZM10 6C8.34315 6 7 7.34315 7 9C7 10.6569 8.34315 12 10 12C11.6569 12 13 10.6569 13 9C13 7.34315 11.6569 6 10 6Z" fill="#3b5ba9"/></svg>';
+  checkBtn.addEventListener("click", function (e) {
+    e.stopPropagation(); // Prevent triggering card click
+    if (currentMode === "verset") {
+      text.textContent = verse.text;
+      text.classList.remove("blurred", "partial");
+      clickCount = 2; // Mark as fully revealed
+    } else if (currentMode === "referinta") {
+      ref.textContent = verse.ref;
+      ref.classList.remove("blurred", "partial");
+      clickCount = 2;
+    }
+    checkBtn.disabled = true;
+    checkBtn.classList.add("checked");
+  });
+  card.appendChild(checkBtn);
+
   card.appendChild(ref);
   card.appendChild(text);
   return card;

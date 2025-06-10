@@ -65,6 +65,7 @@ main {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
   transition: box-shadow 0.2s;
   cursor: pointer;
+  position: relative; /* Needed for absolute positioning of check-btn */
 }
 .verse-card:hover {
   box-shadow: 0 8px 32px rgba(27, 68, 130, 0.13);
@@ -316,6 +317,38 @@ footer {
   user-select: none;
 }
 
+.check-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  background: rgba(58, 123, 213, 0.1);
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(27, 68, 130, 0.07);
+  transition: background 0.2s, box-shadow 0.2s, filter 0.2s;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.check-btn svg {
+  display: block;
+  opacity: 0.82;
+  transition: opacity 0.2s;
+}
+.check-btn:hover,
+.check-btn:focus {
+  background: rgba(58, 123, 213, 0.18);
+  box-shadow: 0 4px 16px rgba(27, 68, 130, 0.13);
+  filter: brightness(1.08);
+}
+.check-btn.checked {
+  background: rgba(58, 123, 213, 0.08);
+  opacity: 0.6;
+  pointer-events: none;
+}
 @media (max-width: 600px) {
   header {
     background-size: cover;
@@ -390,6 +423,11 @@ footer {
   .collection-title-arrow {
     margin: 0 4px 0 4px;
     font-size: 1.1em;
+  }
+  .check-btn {
+    right: 8px;
+    bottom: 8px;
+    padding: 6px;
   }
 }
 
