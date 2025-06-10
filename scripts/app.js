@@ -153,7 +153,38 @@ function showHero(show) {
 function renderVerses(collection) {
   const versesSection = document.getElementById("verses-section");
   versesSection.innerHTML = "";
+  // Remove any existing collection title row above mode buttons
+  const modeButtons = document.getElementById("mode-buttons");
+  const prevTitleRow = document.querySelector(".collection-title-row");
+  if (prevTitleRow && prevTitleRow.parentNode) {
+    prevTitleRow.parentNode.removeChild(prevTitleRow);
+  }
   let verses = getCollectionVerses(collection);
+
+  // Add collection title, right arrow, and count label
+  const collectionTitleRow = document.createElement("div");
+  collectionTitleRow.className = "collection-title-row";
+  const title = document.createElement("span");
+  title.className = "collection-title";
+  const btn = document.querySelector(`button[data-collection='${collection}']`);
+  title.textContent = btn ? btn.textContent.trim() : collection;
+  // Arrow
+  const arrow = document.createElement("span");
+  arrow.className = "collection-title-arrow";
+  arrow.textContent = "→";
+  // Count label
+  const countLabel = document.createElement("span");
+  countLabel.className = "verses-count-label";
+  countLabel.textContent = `${verses.length} versete`;
+  collectionTitleRow.appendChild(title);
+  collectionTitleRow.appendChild(arrow);
+  collectionTitleRow.appendChild(countLabel);
+
+  // Insert the title row above the mode buttons
+  if (modeButtons && modeButtons.parentNode) {
+    modeButtons.parentNode.insertBefore(collectionTitleRow, modeButtons);
+  }
+
   shuffleArray(verses);
   verses.forEach((verse) => {
     versesSection.appendChild(createVerseCard(verse));
@@ -162,7 +193,6 @@ function renderVerses(collection) {
   showActionButtons(true);
   showHero(false);
   showModeButtons(true);
-  // Remove main.scrollIntoView to prevent scrolling past mode buttons
 }
 
 function setupCollectionSelector() {
@@ -180,11 +210,15 @@ function setupCollectionSelector() {
       section.style.display = "none";
       renderVerses(currentCollection);
       // Ensure mode buttons are visible at the very top of the viewport
+      // window.scrollTo({
+      //   top:
+      //     document.getElementById("mode-buttons").getBoundingClientRect().top +
+      //     window.scrollY -
+      //     8,
+      //   behavior: "smooth",
+      // });
       window.scrollTo({
-        top:
-          document.getElementById("mode-buttons").getBoundingClientRect().top +
-          window.scrollY -
-          8,
+        top: document.getElementById("title-row"),
         behavior: "smooth",
       });
     }
@@ -196,6 +230,11 @@ function setupCollectionSelector() {
     showActionButtons(false);
     showHero(true);
     showModeButtons(false);
+    // Remove collection title row if present
+    const prevTitleRow = document.querySelector(".collection-title-row");
+    if (prevTitleRow && prevTitleRow.parentNode) {
+      prevTitleRow.parentNode.removeChild(prevTitleRow);
+    }
   });
 
   refreshBtn.addEventListener("click", function () {
@@ -249,6 +288,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       const hero = document.querySelector(".hero");
       if (hero) hero.style.display = "block";
       document.getElementById("mode-buttons").style.display = "none";
+      // Remove collection title row if present
+      const prevTitleRow = document.querySelector(".collection-title-row");
+      if (prevTitleRow && prevTitleRow.parentNode) {
+        prevTitleRow.parentNode.removeChild(prevTitleRow);
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
   }
