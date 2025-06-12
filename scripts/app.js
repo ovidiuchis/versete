@@ -290,6 +290,7 @@ function setupCollectionSelector() {
   refreshBtn.addEventListener("click", function () {
     if (currentCollection) {
       renderVerses(currentCollection);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   });
 
