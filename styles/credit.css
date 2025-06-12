@@ -1,0 +1,174 @@
+.footer-credit {
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+}
+
+.credit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.credit-link:hover {
+  color: #374151;
+  transform: translateY(-1px);
+}
+
+.credit-link:hover .logo-svg {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.3));
+}
+
+.credit-text {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.credit-link:hover .credit-text {
+  opacity: 1;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-svg {
+  width: 20px;
+  height: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #6b7280;
+}
+
+.credit-link:hover .logo-svg {
+  color: #3b82f6;
+}
+
+.logo-circle {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+}
+
+.credit-link:hover .logo-circle {
+  stroke-dasharray: 63;
+  stroke-dashoffset: 63;
+  animation: drawCircle 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.logo-inner {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.credit-link:hover .logo-inner {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.logo-dot {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.credit-link:hover .logo-dot {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.logo-gradient {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.credit-link:hover .logo-gradient {
+  opacity: 1;
+}
+
+/* Subtle background glow on hover */
+.credit-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1),
+    rgba(139, 92, 246, 0.1)
+  );
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.credit-link:hover::before {
+  opacity: 1;
+}
+
+@keyframes drawCircle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 2px currentColor);
+  }
+  to {
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .credit-link {
+    color: #9ca3af;
+  }
+
+  .credit-link:hover {
+    color: #d1d5db;
+  }
+
+  .logo-svg {
+    color: #9ca3af;
+  }
+
+  .credit-link:hover .logo-svg {
+    color: #60a5fa;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .credit-link {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .logo-svg {
+    width: 18px;
+    height: 18px;
+  }
+}

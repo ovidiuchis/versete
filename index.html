@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memorează versete din Scriptură</title>
     <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/credit.css" />
     <link rel="icon" href="styles/library.png" type="image/x-icon" />
   </head>
   <body>
     <header>
-      <h1 id="site-title" style="cursor: pointer">
-        Memorează versete din Scriptură
-      </h1>
+      <h1 id="site-title" style="cursor: pointer">Memorează versete din Scriptură</h1>
     </header>
     <main>
       <div class="hero" style="display: none">
@@ -27,15 +26,9 @@
       <section id="collection-select-section">
         <h2>Alege colecția de versete</h2>
         <div class="collection-list">
-          <button class="collection-btn" data-collection="comunitate2025">
-            Olimpiadă - comunitate 2025
-          </button>
-          <button class="collection-btn" data-collection="sioniada2025">
-            Sioniadă - 2025
-          </button>
-          <button class="collection-btn" data-collection="scriptura">
-            Versete generale
-          </button>
+          <button class="collection-btn" data-collection="comunitate2025">Olimpiadă - comunitate 2025</button>
+          <button class="collection-btn" data-collection="sioniada2025">Sioniadă - 2025</button>
+          <button class="collection-btn" data-collection="scriptura">Versete generale</button>
         </div>
       </section>
       <section id="verses-section" class="hidden"></section>
@@ -45,7 +38,36 @@
       </div>
     </main>
     <footer>
-      <p>&copy; Un proiect pentru memorarea Scripturii· 2025</p>
+      <div class="footer-flex">
+        <p class="footer-main">&copy; Un proiect pentru memorarea Scripturii · 2025 ·</p>
+        <div class="footer-credit">
+          <a href="http://ovidiuchis.github.io/" target="_blank" rel="noopener noreferrer" class="credit-link">
+            <span class="credit-text">by</span>
+            <div class="logo-container">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="logo-svg"
+              >
+                <!-- O exterior -->
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none" class="logo-circle" />
+                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" fill="none" class="logo-circle" />
+
+                <defs>
+                  <radialGradient id="logoGradient" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="currentColor" stop-opacity="0.1" />
+                    <stop offset="100%" stop-color="currentColor" stop-opacity="0.3" />
+                  </radialGradient>
+                </defs>
+                <circle cx="12" cy="12" r="10" fill="url(#logoGradient)" class="logo-gradient" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
     </footer>
     <script src="scripts/app.js"></script>
   </body>
