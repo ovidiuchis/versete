@@ -25,10 +25,12 @@
       </div>
       <section id="collection-select-section">
         <h2>Alege colecția de versete</h2>
-        <div class="collection-list">
-          <button class="collection-btn" data-collection="comunitate2025">Olimpiadă - comunitate 2025</button>
-          <button class="collection-btn" data-collection="sioniada2025">Sioniadă - 2025</button>
-          <button class="collection-btn" data-collection="scriptura">Versete generale</button>
+        <div class="collection-list" id="collection-list">
+          <!-- Main collection buttons will be injected by JS -->
+          <details id="hidden-collections-details" style="margin-bottom: 1em">
+            <summary>Vezi colectii anterioare</summary>
+            <div id="hidden-collections-list"></div>
+          </details>
         </div>
       </section>
       <section id="verses-section" class="hidden"></section>

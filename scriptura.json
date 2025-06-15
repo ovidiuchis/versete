@@ -1,34 +1,39 @@
-[
-  {
-    "text": "Toată Scriptura este insuflată de Dumnezeu și de folos pentru învățătură, pentru mustrare, pentru îndreptare, pentru instruire în dreptate.",
-    "reference": "2 Timotei 3:16"
-  },
-  {
-    "text": "Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.",
-    "reference": "Psalmul 119:105"
-  },
-  {
-    "text": "Cerul și pământul vor trece, dar cuvintele Mele nu vor trece.",
-    "reference": "Matei 24:35"
-  },
-  {
-    "text": "Omul nu trăiește numai cu pâine, ci cu orice cuvânt care iese din gura lui Dumnezeu.",
-    "reference": "Matei 4:4"
-  },
-  {
-    "text": "Cuvântul lui Hristos să locuiască din belșug în voi, în toată înțelepciunea.",
-    "reference": "Coloseni 3:16"
-  },
-  {
-    "text": "Căci Cuvântul lui Dumnezeu este viu și lucrător, mai ascuțit decât orice sabie cu două tăișuri.",
-    "reference": "Evrei 4:12"
-  },
-  {
-    "text": "Ferice de cei ce ascultă cuvântul lui Dumnezeu și-l păzesc!",
-    "reference": "Luca 11:28"
-  },
-  {
-    "text": "Iar aceste cuvinte, pe care ți le poruncesc astăzi, să le ai în inima ta.",
-    "reference": "Deuteronom 6:6"
-  }
-]
+{
+  "Name": "Versete generale",
+  "Date": "2025-05-01",
+  "Ascuns": false,
+  "verses": [
+    {
+      "text": "Toată Scriptura este insuflată de Dumnezeu și de folos pentru învățătură, pentru mustrare, pentru îndreptare, pentru instruire în dreptate.",
+      "reference": "2 Timotei 3:16"
+    },
+    {
+      "text": "Cuvântul Tău este o candelă pentru picioarele mele și o lumină pe cărarea mea.",
+      "reference": "Psalmul 119:105"
+    },
+    {
+      "text": "Cerul și pământul vor trece, dar cuvintele Mele nu vor trece.",
+      "reference": "Matei 24:35"
+    },
+    {
+      "text": "Omul nu trăiește numai cu pâine, ci cu orice cuvânt care iese din gura lui Dumnezeu.",
+      "reference": "Matei 4:4"
+    },
+    {
+      "text": "Cuvântul lui Hristos să locuiască din belșug în voi, în toată înțelepciunea.",
+      "reference": "Coloseni 3:16"
+    },
+    {
+      "text": "Căci Cuvântul lui Dumnezeu este viu și lucrător, mai ascuțit decât orice sabie cu două tăișuri.",
+      "reference": "Evrei 4:12"
+    },
+    {
+      "text": "Ferice de cei ce ascultă cuvântul lui Dumnezeu și-l păzesc!",
+      "reference": "Luca 11:28"
+    },
+    {
+      "text": "Iar aceste cuvinte, pe care ți le poruncesc astăzi, să le ai în inima ta.",
+      "reference": "Deuteronom 6:6"
+    }
+  ]
+}

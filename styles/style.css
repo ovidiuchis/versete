@@ -162,12 +162,19 @@ footer .footer-flex {
   align-items: center;
 }
 
-#collection-select-section h2 {
-  color: #1b4482;
+#collection-select-section > h2 {
   font-family: "Merriweather", "Georgia", serif;
-  font-size: 1.3em;
+  font-size: 1.4em;
   font-weight: 700;
-  margin-bottom: 12px;
+  color: #1b4482;
+  margin: 0 0 18px 0;
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  transition: none;
 }
 
 #verses-section {
@@ -373,6 +380,50 @@ footer .footer-flex {
   opacity: 0.5;
   pointer-events: none;
   transition: opacity 0.3s;
+}
+
+/* Style for summary/details block for hidden collections */
+#hidden-collections-summary {
+  font-size: 1.08em;
+  color: #3b5ba9;
+  background: #f0f4fa;
+  border-radius: 8px 8px 0 0;
+  padding: 10px 16px;
+  margin-bottom: 0;
+  border: 1.5px solid #e0e0e0;
+  border-bottom: none;
+  transition: background 0.2s;
+}
+#hidden-collections-summary:hover {
+  background: #e6eaf3;
+}
+#hidden-collections-details {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  background: #f8fafc;
+  margin-top: 0;
+  padding: 0 0 10px 0;
+  box-shadow: 0 2px 8px rgba(27, 68, 130, 0.04);
+}
+#hidden-collections-details[open] > summary {
+  color: #1b4482;
+  font-weight: 600;
+}
+#hidden-collections-details summary {
+  font-size: 1em;
+  color: #3b5ba9;
+  background: transparent;
+  padding: 10px 16px 6px 16px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 0 0 8px 8px;
+  transition: background 0.2s;
+}
+#hidden-collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
 }
 
 @media (max-width: 600px) {

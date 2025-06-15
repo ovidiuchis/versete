@@ -11,29 +11,29 @@ async function loadHeroVerses() {
 const collectionFiles = [
   "comunitate2025.json",
   "sioniada2025.json",
-  "scriptura.json",
+  "scriptura.json"
   // Add more collection files here as needed
 ];
 
 const collections = {};
-collectionFiles.forEach((file) => {
+collectionFiles.forEach(file => {
   const name = file.replace(/\.json$/, "");
   collections[name] = {
-    data: [],
+    data: null, // Will hold the full collection object
     file,
-    map: (v) => {
+    map: v => {
       // Try to normalize structure: prefer {ref, text}, else {reference, text}
       if (v.ref && v.text) return v;
       if (v.reference && v.text) return { ref: v.reference, text: v.text };
       return v;
-    },
+    }
   };
 });
 
 async function loadCollection(name) {
   if (!collections[name]) return;
   const response = await fetch(collections[name].file);
-  collections[name].data = await response.json();
+  collections[name].data = await response.json(); // Store the full object
 }
 
 async function loadAllCollections() {
@@ -41,8 +41,10 @@ async function loadAllCollections() {
 }
 
 function getCollectionVerses(name) {
-  if (!collections[name]) return [];
-  return collections[name].data.map(collections[name].map);
+  if (!collections[name] || !collections[name].data) return [];
+  // Expect data.verses to be the array
+  const versesArr = collections[name].data.verses || [];
+  return versesArr.map(collections[name].map);
 }
 
 function setRandomHeroVerse() {
@@ -75,9 +77,7 @@ function createVerseCard(verse) {
         const firstWord = verse.text.split(" ")[0];
         text.innerHTML =
           `<span class="first-word">${firstWord}</span>` +
-          `<span class="rest-blur">${verse.text.slice(
-            firstWord.length
-          )}</span>`;
+          `<span class="rest-blur">${verse.text.slice(firstWord.length)}</span>`;
         text.classList.remove("blurred");
         text.classList.add("partial");
         // Hide checkBtn after hint is shown
@@ -96,9 +96,7 @@ function createVerseCard(verse) {
           ref.innerHTML = `<span class="first-word">${verse.ref.slice(
             0,
             colonIdx + 1
-          )}</span><span class="rest-blur">${verse.ref.slice(
-            colonIdx + 1
-          )}</span>`;
+          )}</span><span class="rest-blur">${verse.ref.slice(colonIdx + 1)}</span>`;
         } else {
           ref.innerHTML = `<span class="first-word">${verse.ref}</span>`;
         }
@@ -154,18 +152,12 @@ function createVerseCard(verse) {
 }
 
 function updateModeButtons() {
-  document
-    .getElementById("mode-verset")
-    .classList.toggle("mode-active", currentMode === "verset");
-  document
-    .getElementById("mode-referinta")
-    .classList.toggle("mode-active", currentMode === "referinta");
+  document.getElementById("mode-verset").classList.toggle("mode-active", currentMode === "verset");
+  document.getElementById("mode-referinta").classList.toggle("mode-active", currentMode === "referinta");
 }
 
 function showModeButtons(show) {
-  document.getElementById("mode-buttons").style.display = show
-    ? "flex"
-    : "none";
+  document.getElementById("mode-buttons").style.display = show ? "flex" : "none";
 }
 
 function shuffleArray(array) {
@@ -176,9 +168,7 @@ function shuffleArray(array) {
 }
 
 function showActionButtons(show) {
-  document.getElementById("action-buttons").style.display = show
-    ? "flex"
-    : "none";
+  document.getElementById("action-buttons").style.display = show ? "flex" : "none";
 }
 
 function showHero(show) {
@@ -222,7 +212,7 @@ function renderVerses(collection) {
   }
 
   shuffleArray(verses);
-  verses.forEach((verse) => {
+  verses.forEach(verse => {
     versesSection.appendChild(createVerseCard(verse));
   });
   versesSection.style.display = "block";
@@ -240,17 +230,50 @@ function setupCollectionSelector() {
   const modeReferintaBtn = document.getElementById("mode-referinta");
   let currentCollection = null;
 
+  // Populate main collection list (Ascuns = false)
+  const mainList = document.getElementById("collection-list");
+  if (mainList) {
+    // Remove all existing main collection buttons (if any)
+    Array.from(mainList.querySelectorAll("button.collection-btn")).forEach(btn => btn.remove());
+    Object.keys(collections).forEach(name => {
+      const col = collections[name];
+      if (col.data && col.data.Ascuns === false) {
+        let label = col.data.Name || name;
+        const btn = document.createElement("button");
+        btn.className = "collection-btn";
+        btn.setAttribute("data-collection", name);
+        btn.textContent = label;
+        // Insert before the details block
+        const details = document.getElementById("hidden-collections-details");
+        mainList.insertBefore(btn, details);
+      }
+    });
+  }
+
+  // Populate hidden collections (Ascuns = true)
+  const hiddenList = document.getElementById("hidden-collections-list");
+  if (hiddenList) {
+    hiddenList.innerHTML = "";
+    Object.keys(collections).forEach(name => {
+      const col = collections[name];
+      if (col.data && col.data.Ascuns === true) {
+        let label = col.data.Name || name;
+        const btn = document.createElement("button");
+        btn.className = "collection-btn";
+        btn.setAttribute("data-collection", name);
+        btn.textContent = label;
+        hiddenList.appendChild(btn);
+      }
+    });
+  }
+
   section.addEventListener("click", function (e) {
     if (e.target.classList.contains("collection-btn")) {
       currentCollection = e.target.getAttribute("data-collection");
       section.style.display = "none";
       renderVerses(currentCollection);
       // Add a new state to the browser history
-      history.pushState(
-        { collection: currentCollection },
-        "",
-        "#" + currentCollection
-      );
+      history.pushState({ collection: currentCollection }, "", "#" + currentCollection);
     }
   });
 
@@ -311,6 +334,21 @@ function setupCollectionSelector() {
   // Show hero on load
   showHero(true);
   showModeButtons(false);
+  // Setup dynamic summary text for hidden collections details
+  const hiddenDetails = document.getElementById("hidden-collections-details");
+  if (hiddenDetails) {
+    const summary = hiddenDetails.querySelector("summary");
+    if (summary) {
+      summary.textContent = "Vezi colectii anterioare";
+      hiddenDetails.addEventListener("toggle", function () {
+        if (hiddenDetails.open) {
+          summary.textContent = "Ascunde colectii anterioare";
+        } else {
+          summary.textContent = "Vezi colectii anterioare";
+        }
+      });
+    }
+  }
 }
 
 // On DOMContentLoaded, load the JSON first, then setup
@@ -332,8 +370,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   if (siteTitle) {
     siteTitle.style.cursor = "pointer";
     siteTitle.onclick = function () {
-      document.getElementById("collection-select-section").style.display =
-        "flex";
+      document.getElementById("collection-select-section").style.display = "flex";
       document.getElementById("verses-section").style.display = "none";
       document.getElementById("action-buttons").style.display = "none";
       const hero = document.querySelector(".hero");
