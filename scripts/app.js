@@ -200,11 +200,12 @@ function createVerseCard(verse) {
   card.addEventListener("click", function () {
     clickCount++;
     if (currentMode === "verset") {
+      const words = verse.text.split(/\s+/);
       if (clickCount === 1) {
-        const firstWord = verse.text.split(" ")[0];
-        text.innerHTML =
-          `<span class=\"first-word\">${firstWord}</span>` +
-          `<span class=\"rest-blur\">${verse.text.slice(firstWord.length)}</span>`;
+        // Reveal first word
+        text.innerHTML = `<span class=\"first-word\">${words[0]}</span> <span class=\"rest-blur\">${words
+          .slice(1)
+          .join(" ")}</span>`;
         text.classList.remove("blurred");
         text.classList.add("partial");
         checkBtn.style.opacity = "0";
@@ -212,6 +213,24 @@ function createVerseCard(verse) {
           checkBtn.style.display = "none";
         }, 250);
       } else if (clickCount === 2) {
+        // Reveal 30% of words (random)
+        const n = Math.max(1, Math.floor(words.length * 0.3));
+        const revealedIdx = new Set([0]);
+        while (revealedIdx.size < n) {
+          revealedIdx.add(Math.floor(Math.random() * words.length));
+        }
+        text.innerHTML = words
+          .map((w, i) =>
+            revealedIdx.has(i) ? `<span class=\"first-word\">${w}</span>` : `<span class=\"rest-blur\">${w}</span>`
+          )
+          .join(" ");
+        text.classList.remove("blurred");
+        text.classList.add("partial");
+        checkBtn.style.opacity = "0";
+        setTimeout(() => {
+          checkBtn.style.display = "none";
+        }, 250);
+      } else if (clickCount === 3) {
         text.textContent = verse.text;
         text.classList.remove("partial", "blurred");
       }
