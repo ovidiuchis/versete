@@ -448,7 +448,8 @@ footer .footer-flex {
 }
 #hidden-collections-details[open] > summary {
   color: #1b4482;
-  font-weight: 600;
+  font-weight: 300;
+  padding-bottom: 1em;
 }
 #hidden-collections-details summary {
   font-size: 1em;
@@ -456,6 +457,7 @@ footer .footer-flex {
   background: transparent;
   padding: 10px 16px 6px 16px;
   cursor: pointer;
+  font-weight: 600;
   outline: none;
   border-radius: 0 0 8px 8px;
   transition: background 0.2s;
