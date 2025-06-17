@@ -3,9 +3,11 @@ let currentMode = "verset"; // "verset" or "referinta"
 
 // --- Collection Data Handling ---
 const collectionFiles = [
+  "nationala2025.json",
   "comunitate2025.json",
   "sioniada2025.json",
   "scriptura.json"
+
   // Add more collection files here as needed
 ];
 const collections = {};
