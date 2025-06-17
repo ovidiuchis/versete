@@ -466,6 +466,7 @@ footer .footer-flex {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  align-items: center;
   padding: 0 16px;
 }
 
