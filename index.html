@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/credit.css" />
     <link rel="icon" href="styles/library.png" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="styles/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="styles/favicon.svg" />
+    <link rel="shortcut icon" href="styles/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="styles/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Memorează Scriptura" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("/service-worker.js")
+          .then(() => console.log("✅ Service worker registered"))
+          .catch(err => console.error("❌ SW registration failed", err));
+      }
+    </script>
   </head>
   <body>
     <header>
