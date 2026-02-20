@@ -6,6 +6,9 @@ on:
       - "data/*.json"
       - "!data/collections.json"
 
+permissions:
+  contents: write
+
 jobs:
   update-manifest:
     runs-on: ubuntu-latest
