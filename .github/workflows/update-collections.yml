@@ -1,0 +1,31 @@
+name: Update collections manifest
+
+on:
+  push:
+    paths:
+      - "data/*.json"
+      - "!data/collections.json"
+
+jobs:
+  update-manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate collections.json from data/ directory
+        run: |
+          cd data
+          # List all .json files except collections.json, sorted alphabetically
+          ls -1 *.json | grep -v '^collections\.json$' | sort | \
+            jq -R -s 'split("\n") | map(select(length > 0))' > collections.json.tmp
+          mv collections.json.tmp collections.json
+          cat collections.json
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/collections.json
+          # Only commit if there are changes
+          git diff --cached --quiet || git commit -m "Auto-update collections.json"
+          git push

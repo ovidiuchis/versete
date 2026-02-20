@@ -1,5 +1,5 @@
-const CACHE_NAME = "memorez-v1";
-const FILES_TO_CACHE = [
+const CACHE_NAME = "memorez-v2";
+const STATIC_FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/scripts/app.js",
@@ -14,15 +14,26 @@ const FILES_TO_CACHE = [
   "/styles/web-app-manifest-192x192.png",
   "/styles/web-app-manifest-512x512.png",
   "/site.webmanifest",
-  "/comunitate2025.json",
   "/hero-verses.json",
-  "/nationala2025.json",
-  "/scriptura.json",
-  "/sioniada2025.json"
+  "/data/collections.json"
 ];
 
 self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(FILES_TO_CACHE)));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(async cache => {
+      // Cache static files first
+      await cache.addAll(STATIC_FILES_TO_CACHE);
+      // Then read the collections manifest and cache each collection file
+      try {
+        const response = await fetch("/data/collections.json");
+        const collectionFiles = await response.json();
+        const collectionUrls = collectionFiles.map(f => `/data/${f}`);
+        await cache.addAll(collectionUrls);
+      } catch (e) {
+        console.warn("Could not cache collection files:", e);
+      }
+    })
+  );
 });
 
 self.addEventListener("activate", event => {

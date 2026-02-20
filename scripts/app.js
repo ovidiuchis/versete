@@ -2,28 +2,28 @@
 let currentMode = "verset"; // "verset" or "referinta"
 
 // --- Collection Data Handling ---
-const collectionFiles = [
-  "nationala2025.json",
-  "comunitate2025.json",
-  "sioniada2025.json",
-  "scriptura.json"
-
-  // Add more collection files here as needed
-];
+const DATA_DIR = "data";
 const collections = {};
-collectionFiles.forEach(file => {
-  const name = file.replace(/\.json$/, "");
-  collections[name] = {
-    data: null,
-    file,
-    map: v => (v.ref && v.text ? v : v.reference && v.text ? { ref: v.reference, text: v.text } : v)
-  };
-});
 
 async function loadAllCollections() {
+  // Fetch the manifest that lists all collection files
+  const manifestResponse = await fetch(`${DATA_DIR}/collections.json`);
+  const collectionFiles = await manifestResponse.json();
+
+  // Register each collection
+  collectionFiles.forEach(file => {
+    const name = file.replace(/\.json$/, "");
+    collections[name] = {
+      data: null,
+      file,
+      map: v => (v.ref && v.text ? v : v.reference && v.text ? { ref: v.reference, text: v.text } : v)
+    };
+  });
+
+  // Load all collection data in parallel
   await Promise.all(
     Object.keys(collections).map(async name => {
-      const response = await fetch(collections[name].file);
+      const response = await fetch(`${DATA_DIR}/${collections[name].file}`);
       collections[name].data = await response.json();
     })
   );
