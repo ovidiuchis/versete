@@ -84,7 +84,13 @@ function setupCollectionSelector() {
   // Populate main and hidden collections
   if (mainList) {
     Array.from(mainList.querySelectorAll("button.collection-btn")).forEach(btn => btn.remove());
-    Object.keys(collections).forEach(name => {
+    // Sort collections by Date descending (newest first), undated last
+    const sortedNames = Object.keys(collections).sort((a, b) => {
+      const dateA = collections[a].data?.Date ? new Date(collections[a].data.Date) : new Date(0);
+      const dateB = collections[b].data?.Date ? new Date(collections[b].data.Date) : new Date(0);
+      return dateB - dateA;
+    });
+    sortedNames.forEach(name => {
       const col = collections[name];
       if (!col.data) return;
       const label = col.data.Name || name;
